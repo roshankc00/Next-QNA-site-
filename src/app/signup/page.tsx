@@ -13,37 +13,57 @@ const Signup = () => {
  
 
   const initialValue={
-    name:"",
+    username:"",
     password:"",
     email:""
   }
 
   const validationSchema=object().shape({
-    name:string().required("name is required"),
+    username:string().required("name is required"),
     password:string().required("password is requried"),
     email:string().required("email is required")
     
 
   })
-  const handleSubmit=(values:object)=>{
-    console.log(values)
+  console.log(process.env.SECRET)
+  const handleSubmit=async(values:any,{setSubmitting}:any)=>{
+    try {
+      console.log(values)
+      const response=await axios.post('/api/users/signup',{
+        username:values.username,
+        email:values.email,
+        password:values.password
+      })
 
+      if(response.data.status){
+        router.push('/login')
+      }
+
+
+    
+
+      
+      setSubmitting(false)
+    } catch (error:any) {
+      console.log(error.message)
+      
+    }
   }
   return (
     <div className='h-["100vh"] flex justify-center items-center mt-10'>
     <div className='max-w-md h-full mx-auto mb-2 border p-4  '>
-      <h1 className='text-center text-2xl font-bold mb-4'>Login</h1>
+      <h1 className='text-center text-2xl font-bold mb-4'>Sign up</h1>
       
        <Formik initialValues={initialValue} validationSchema={validationSchema} onSubmit={handleSubmit}>
-        {()=>{
+        {({isSubmitting})=>{
           return(
             <Form>
               
 
               <div>
-              <label htmlFor="name" className='w-full mb-4 text-xl'> Name:</label>
-              <Field type="text" name="name" className='w-full mb-4 border p-3'></Field>
-              <ErrorMessage name="name" component="div"className="text-red-700 mb-2 text-xl"/>
+              <label htmlFor="username" className='w-full mb-4 text-xl'> Name:</label>
+              <Field type="text" name="username" className='w-full mb-4 border p-3'></Field>
+              <ErrorMessage name="username" component="div"className="text-red-700 mb-2 text-xl"/>
               </div>
 
               <div>
@@ -57,13 +77,19 @@ const Signup = () => {
               <Field type="password" name="password" className='w-full mb-4 border p-3'></Field>
               <ErrorMessage name="password" component="div" className="text-red-500 mb-2 text-xl"/>
               </div>
-              <button type='submit' className='bg-blue-700 p-2 text-white rounded-md my-2'> Submit</button>
+              <button type='submit' className='bg-blue-700 p-2 text-white rounded-md my-2'> 
+              {
+                isSubmitting?"creating...":" submit"
+              }
+              
+              </button>
 
             </Form>
 
           )
         }}
        </Formik>
+       <Link  href='/login' className=''>Already Register</Link>
    
     </div>
     </div>

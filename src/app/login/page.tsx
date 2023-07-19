@@ -5,10 +5,13 @@ import {object,string} from'yup'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { errorToast, loadingToast, sucessToast } from '@/services/toastify';
+
 
 
 const Login= () => {
   const router=useRouter()
+
 
  
 
@@ -23,20 +26,24 @@ const Login= () => {
     
 
   })
-  const handleSubmit=(values:object)=>{
-    console.log(values)
+  const handleSubmit=async(values:object)=>{
+    const response=await axios.post('/api/users/login',values)
+    if(response.data.status){
+      router.push('/profile')
+    }
+
+ 
 
   }
   return (
     <div className='h-["100vh"] flex justify-center items-center mt-10'>
     <div className='max-w-md h-full mx-auto mb-2 border p-4  '>
-      <h1 className='text-center text-2xl font-bold mb-4'>SignUp</h1>
+      <h1 className='text-center text-2xl font-bold mb-4'>Login</h1>
       
        <Formik initialValues={initialValue} validationSchema={validationSchema} onSubmit={handleSubmit}>
         {()=>{
           return(
-            <Form>
-              
+            <Form>             
 
               <div>
               <label htmlFor="email" className='w-full mb-4 text-xl'> Email:</label>

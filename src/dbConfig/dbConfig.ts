@@ -1,21 +1,24 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-
-export async function connect(){
+export async function connect() {
     try {
-         mongoose.connect(process.env.MONGO_URL!)
-         const connection=mongoose.connection;
-         connection.on('connected',()=>{
-            console.log("MongoDb connected sucessfully")
-         })
-    
-         connection.on('error',(err)=>{
-            console.log("MongoDB connection error. please make sure mongoDB is running",err)
+        mongoose.connect("mongodb://127.0.0.1:27017/nextauth");
+        const connection = mongoose.connection;
+
+        connection.on('connected', () => {
+            console.log('MongoDB connected successfully');
+        })
+
+        connection.on('error', (err) => {
+            console.log('MongoDB connection error. Please make sure MongoDB is running. ' + err);
             process.exit();
-         })        
+        })
+
     } catch (error) {
-        console.log("Something went wrong ")
-        console.log(error)
+        console.log('Something goes wrong!');
+        console.log(error);
         
     }
+
+
 }
