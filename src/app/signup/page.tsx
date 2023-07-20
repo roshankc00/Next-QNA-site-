@@ -5,6 +5,7 @@ import {object,string} from'yup'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { errorToast, sucessToast } from '@/services/toastify';
 
 
 const Signup = () => {
@@ -18,6 +19,8 @@ const Signup = () => {
     email:""
   }
 
+
+
   const validationSchema=object().shape({
     username:string().required("name is required"),
     password:string().required("password is requried"),
@@ -25,7 +28,6 @@ const Signup = () => {
     
 
   })
-  console.log(process.env.SECRET)
   const handleSubmit=async(values:any,{setSubmitting}:any)=>{
     try {
       console.log(values)
@@ -36,7 +38,10 @@ const Signup = () => {
       })
 
       if(response.data.status){
+        sucessToast(response.data.message)
         router.push('/login')
+      }else{
+         errorToast(response.data.message)
       }
 
 

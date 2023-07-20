@@ -1,0 +1,59 @@
+=======> with typescript tailwind and nextjs <====
+
+
+-------------------user--------  
+--> login
+--> sign in
+--> forget pass
+-->reset password
+-->logout
+--> get single user
+--> get all the user
+--> upadate user
+--> upadate user role
+--> delete user 
+spec(generate the avatar by bigheads )
+
+
+
+---------Problems----------
+--> create
+--> update 
+--> delete
+--> get single
+--> get all
+--> like increase decrease
+-->lets think while making the project                     
+
+
+-------solutions ---------
+--> create
+--> update 
+--> delete
+--> get single
+--> get all
+--> like increase decrease
+--> ---lets think while making the project 
+
+
+
+
+---------comment 
+--> create
+--> update 
+--> delete
+--> get single
+--> get all
+
+
+
+---> extra adding the proper zod validation(backend) formik(frontend) helmet mongosanitize hpp 
+
+
+
+
+
+
+
+
+

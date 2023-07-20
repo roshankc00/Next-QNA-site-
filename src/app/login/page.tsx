@@ -1,11 +1,12 @@
 "use client";
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Formik,ErrorMessage,Field,Form } from 'formik';
 import {object,string} from'yup'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { errorToast, loadingToast, sucessToast } from '@/services/toastify';
+import { toast } from 'react-toastify';
 
 
 
@@ -13,7 +14,9 @@ const Login= () => {
   const router=useRouter()
 
 
- 
+
+
+
 
   const initialValue={
       email:"",
@@ -29,9 +32,11 @@ const Login= () => {
   const handleSubmit=async(values:object)=>{
     const response=await axios.post('/api/users/login',values)
     if(response.data.status){
+      sucessToast(response.data.message)
       router.push('/profile')
+    }else{
+       errorToast(response.data.message)
     }
-
  
 
   }
