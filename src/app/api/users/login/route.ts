@@ -3,6 +3,7 @@ import {connect} from '@/dbConfig/dbConfig'
 import User from "@/models/userModel";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken'
+import { tokenData } from "@/interfaces/userInterface";
 
 connect()
 
@@ -25,7 +26,7 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({error:"invalid credentials",status:false},{status:401})
 
         }
-        const data={
+        const data:tokenData={
             email:userExist.email
         }
 
