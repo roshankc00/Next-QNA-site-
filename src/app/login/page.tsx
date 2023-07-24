@@ -25,7 +25,7 @@ const Login= () => {
 
   const validationSchema=object().shape({
     password:string().required("password is requried"),
-    email:string().required("email is required")
+    email:string().required("email is required").min(6)
     
 
   })

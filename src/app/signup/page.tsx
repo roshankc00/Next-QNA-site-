@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react'
 import { Formik,ErrorMessage,Field,Form } from 'formik';
-import {object,string} from'yup'
+import {object,string,number} from'yup'
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
@@ -23,7 +23,7 @@ const Signup = () => {
 
   const validationSchema=object().shape({
     username:string().required("name is required"),
-    password:string().required("password is requried"),
+    password:string().required("password is requried").min(6,"password must be atleast 6 charecter"),
     email:string().required("email is required")
     
 
@@ -36,6 +36,7 @@ const Signup = () => {
         email:values.email,
         password:values.password
       })
+      console.log(response.data)
 
       if(response.data.status){
         sucessToast(response.data.message)

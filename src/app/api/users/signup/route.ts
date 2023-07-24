@@ -2,6 +2,7 @@ import {connect} from "@/dbConfig/dbConfig";
 import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
+import { userSignupZodValidation } from "@/utils/zodValidation";
 
 
 connect()
@@ -10,7 +11,21 @@ connect()
 export async function POST(request: NextRequest){
     try {
         const reqBody = await request.json()
+        console.log("me")
         const {username, email, password} = reqBody 
+        console.log("me")
+        // zod validation
+        let  result=userSignupZodValidation.safeParse(reqBody)
+        let data:any=JSON.stringify(result,null,2)
+         data=JSON.parse(data)
+         console.log(data.error)
+        if(!data.success){
+            return   NextResponse.json({
+                status:false,
+                error:data
+            })  
+      
+        }
 
         const user = await User.findOne({email})
         
@@ -42,7 +57,7 @@ export async function POST(request: NextRequest){
 
 
     } catch (error: any) {
-        return NextResponse.json({error: error.message}, {status: 500})
+        return NextResponse.json({message: error.message}, {status: 500})
 
     }
 }

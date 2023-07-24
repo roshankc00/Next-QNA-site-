@@ -4,6 +4,7 @@ import User from "@/models/userModel";
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken'
 import { tokenData } from "@/interfaces/userInterface";
+import { userLoginZodValidation } from "@/utils/zodValidation";
 
 connect()
 
@@ -14,6 +15,20 @@ export async function POST(request: NextRequest) {
     try {
         const body=await request.json()
         const {email,password}=body
+
+             // zod validation
+             // zod validation
+             let  result=userLoginZodValidation.safeParse(body)
+             let validData:any=JSON.stringify(result,null,2)
+              validData=JSON.parse(validData)
+              console.log(validData.error)
+             if(!validData.success){
+                 return   NextResponse.json({
+                     status:false,
+                     error:validData
+                 })  
+           
+             }
 
         const userExist=await User.findOne({email})
         if(!userExist){
@@ -47,7 +62,7 @@ export async function POST(request: NextRequest) {
 
         
     } catch (error:any) {
-        return NextResponse.json({error:error.message,status:false},{status:500})
+        return NextResponse.json({message:error.message,status:false},{status:500})
         
     }
     

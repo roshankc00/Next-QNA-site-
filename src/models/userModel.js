@@ -1,13 +1,14 @@
+import { userSchemaMessage } from "@/constants/Modelvalidation_message";
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
-        required: [true, " username  is required"],
+        required: [true, userSchemaMessage.USER_NAME_REQUIRED],
     },
     email: {
         type: String,
-        required: [true, " email is required"],
+        required: [true, userSchemaMessage.EMAIL_REQUIRED],
         unique: true,
     },
     password: {
