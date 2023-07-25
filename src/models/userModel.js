@@ -8,12 +8,19 @@ const userSchema = new mongoose.Schema({
     },
     email: {
         type: String,
-        required: [true, userSchemaMessage.EMAIL_REQUIRED],
+        required: [true,  userSchemaMessage.EMAIL_REQUIRED],
         unique: true,
     },
+    questions:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"questions"
+
+    }],
+    
+
     password: {
         type: String,
-        required: [true, " password is required"],
+        required: [true,  userSchemaMessage.PASSWORD_REQUIRED],
     },
     isVerfied: {
         type: Boolean,
@@ -29,6 +36,6 @@ const userSchema = new mongoose.Schema({
     verifyTokenExpiry: Date,
 })
 
-const User = mongoose.models.users || mongoose.model("users", userSchema);
+const User = mongoose.models.user || mongoose.model("user", userSchema);
 
 export default User;

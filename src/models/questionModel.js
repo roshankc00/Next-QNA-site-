@@ -8,7 +8,7 @@ const questionScheama=new mongoose.Schema({
     },
     user:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"Users"
+        ref:"user"
     },
     likes:{
         type:Number,
@@ -18,8 +18,8 @@ const questionScheama=new mongoose.Schema({
         type:String,
     },
     answers:[{
-        type:Mongoose.Schema.types.ObjectId,
-        ref:"Answer"
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"answers"
     }]
 
 
@@ -27,7 +27,9 @@ const questionScheama=new mongoose.Schema({
 
 },{timestamps:true})
 
+console.log(mongoose.model)
 
-const Question=mongoose.model.question || mongoose.model('Question',questionScheama)
 
-export default Question 
+const Question = mongoose.models.questions || mongoose.model("questions", questionScheama);
+
+export default Question

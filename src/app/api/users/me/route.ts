@@ -4,6 +4,7 @@ import User from "@/models/userModel";
 import { NextRequest,NextResponse } from "next/server";
 
 
+
 connect()
 
 
@@ -22,7 +23,7 @@ export async function GET(request:NextRequest) {
        
         
     } catch (error:any) {
-        return NextResponse.json({error:error.message,status:false},{status:500})
+        return NextResponse.json({message:error.message,status:false},{status:500})
         
     }
     

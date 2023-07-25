@@ -8,7 +8,7 @@ const answerSchema=new mongoose.Schema({
     },
     user:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:"users"
+        ref:"user"
     },
     likes:{
         type:Number,
@@ -17,6 +17,6 @@ const answerSchema=new mongoose.Schema({
 },{timestamps:true})
 
 
-const Answer=mongoose.model.answer || mongoose.model("Answer",answerSchema)
+const Answer=mongoose.model.answers || mongoose.model("answers",answerSchema)
 
 export default Answer

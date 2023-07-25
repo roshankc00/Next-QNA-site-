@@ -16,13 +16,13 @@ export async function POST(request: NextRequest){
         console.log("me")
         // zod validation
         let  result=userSignupZodValidation.safeParse(reqBody)
-        let data:any=JSON.stringify(result,null,2)
-         data=JSON.parse(data)
-         console.log(data.error)
-        if(!data.success){
+        let validData:any=JSON.stringify(result,null,2)
+         validData=JSON.parse(validData)
+         console.log(validData.error)
+        if(!validData.success){
             return   NextResponse.json({
                 status:false,
-                error:data
+                error:validData
             })  
       
         }
